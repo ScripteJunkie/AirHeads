@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 # from scipy.misc import bytescale
 
-cap = cv2.VideoCapture('src/assets/Test2.mp4')
+cap = cv2.VideoCapture('src/assets/Test1.mp4')
 # cap = cv2.VideoCapture(0)
 
 first_iter = True
@@ -31,12 +31,8 @@ while(1):
 
         # define range of white color in HSV
         # change it according to your need !
-        # lower_white = np.array([12, 160, 201], dtype=np.uint8) # test2
-        # upper_white = np.array([20, 255, 255], dtype=np.uint8) # test2
-        # lower_white = np.array([10,176,0], dtype=np.uint8)
-        # upper_white = np.array([72,215,255], dtype=np.uint8)
-        lower_white = np.array([12, 150, 200], dtype=np.uint8)
-        upper_white = np.array([20, 255, 255], dtype=np.uint8)
+        lower_white = np.array([ 0, 0, 0], dtype=np.uint8)
+        upper_white = np.array([255, 255, 150], dtype=np.uint8)
 
         # Threshold the HSV image to get only white colors
         mask = cv2.inRange(hsv, lower_white, upper_white)
@@ -76,16 +72,16 @@ while(1):
 
         for i in range(1, len(points)):
             cv2.circle(frame, (points[i][0], points[i][1]), 2, (0, 0, 255), 2)
-        cv2.accumulateWeighted(frame, avg, 0.005)
-        result = cv2.convertScaleAbs(avg)
-        cv2.imshow('avg',result)
+        # cv2.accumulateWeighted(frame, avg, 0.005)
+        # result = cv2.convertScaleAbs(avg)
+        # cv2.imshow('avg',result)
 
         cv2.imshow('res',res)
         cv2.imshow('mask',mask)
         cv2.imshow('frame',frame)
 
-        fps = cap.get(cv2.CAP_PROP_FPS)
-        print("Frames per second using video.get(cv2.CAP_PROP_FPS) : {0}".format(fps))
+        # fps = cap.get(cv2.CAP_PROP_FPS)
+        # print("Frames per second using video.get(cv2.CAP_PROP_FPS) : {0}".format(fps))
 
         key = cv2.waitKey(1)
         if key == ord('q'):
