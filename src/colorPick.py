@@ -6,7 +6,7 @@ def nothing(x):
     pass
 
 # Initializing the webcam feed.
-cap = cv2.VideoCapture('src/assets/Test2.mp4')
+cap = cv2.VideoCapture('src/assets/Test1.mp4')
 # cap = cv2.VideoCapture(0)
 cap.set(3,1280)
 cap.set(4,720)
@@ -74,8 +74,11 @@ while True:
         
         # If the user presses ESC then exit the program
         key = cv2.waitKey(1)
-        if key == 27:
+        if key == ord('q'):
             break
+        if key == ord('p'):
+            cv2.waitKey(-1) #wait until any key is pressed
+
         
         # If the user presses `s` then print this array.
         if key == ord('s'):
