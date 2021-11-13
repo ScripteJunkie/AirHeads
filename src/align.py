@@ -38,6 +38,19 @@ with dai.Device(pipeline) as device:
     print(np.shape(qRgb))
     frame = None
 
+    def mouseRGB(event,x,y,flags,param):
+        if event == cv2.EVENT_LBUTTONDOWN: #checks mouse left button down condition
+            colorsB = frame[y,x,0]
+            colorsG = frame[y,x,1]
+            colorsR = frame[y,x,2]
+            colors = frame[y,x]
+            print("Red: ",colorsR)
+            print("Green: ",colorsG)
+            print("Blue: ",colorsB)
+            print("BRG Format: ",colors)
+            print("Coordinates of pixel: X: ",x,"Y: ",y)
+
+
     while True:
         inRgb = qRgb.tryGet()
 
@@ -52,6 +65,7 @@ with dai.Device(pipeline) as device:
             cv2.line(frame, (960, 0), (960, 1080), (0, 100, 255), 2)
             cv2.line(frame, (0, 540), (1920, 540), (0, 100, 255), 2)
             cv2.circle(frame, (960, 540), 85, (0, 100, 255), 2)
+            cv2.setMouseCallback('Alignment',mouseRGB)
             cv2.imshow('Alignment',frame)
         key = cv2.waitKey(1)
         if key == ord('q'):

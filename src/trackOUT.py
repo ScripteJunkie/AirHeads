@@ -49,7 +49,7 @@ with dai.Device(pipeline) as device:
 
         if frame is not None:
             # cv2.imshow("rgb", frame)
-            frame = frame[0:1800,0:1800]
+            framed = frame[0:1800, 0:1800]
 
             # fgMask = backSub.apply(frame)    
             # cv2.rectangle(frame, (10, 2), (100,20), (255,255,255), -1)
@@ -59,61 +59,44 @@ with dai.Device(pipeline) as device:
             # cut_blur = cv2.medianBlur(cut, 5)
             # cv2.imshow("Cut", cut_blur)
 
-            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            hsv = cv2.cvtColor(framed, cv2.COLOR_BGR2HSV)
 
             # define range of white color in HSV
             # change it according to your need !
             # lower_white = np.array([133, 0, 0], dtype=np.uint8)
             # upper_white = np.array([179, 255, 115], dtype=np.uint8)
-            lower_white = np.array([14, 28, 52], dtype=np.uint8)
-            upper_white = np.array([131, 255, 221], dtype=np.uint8)
+            lower_white = np.array([2, 46, 125], dtype=np.uint8)
+            upper_white = np.array([81, 255, 255], dtype=np.uint8)
 
             # Threshold the HSV image to get only white colors
             mask = cv2.inRange(hsv, lower_white, upper_white)
             # Bitwise-AND mask and original image
-            res = cv2.bitwise_and(frame,frame, mask= mask)
+            res = cv2.bitwise_and(framed,framed, mask= mask)
 
             contours,_ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
             #sorting the contour based of area
             contours = sorted(contours, key=cv2.contourArea, reverse=True)
-
-            gray = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
-            # Blur the image to reduce noise
-            img_blur = cv2.medianBlur(gray, 5)
-            # Apply hough transform on the image
-            circles = cv2.HoughCircles(img_blur, cv2.HOUGH_GRADIENT, 1, 400, param1=200, param2=15, minRadius=25, maxRadius=30)
-            # Draw detected circles
-            if circles is not None:
-                circles = np.uint16(np.around(circles))
-                for i in circles[0]:
-                    # Draw outer circle
-                    # blur = cv2.GaussianBlur(frame, (5, 5), 25)
-                    cv2.circle(frame, (i[0], i[1]), i[2], (0, 255, 255), 2)
-                    points.append((i[0], i[1]))
-                    # cv2.imshow('blur',blur)
-                    # Draw inner circle
-                    # cv2.circle(frame, (i[0], i[1]), 2, (255, 0, 0), 3)
-            
+            tracked = framed.copy()
             if contours:
                 #if any contours are found we take the biggest contour and get bounding box
                 (x_min, y_min, box_width, box_height) = cv2.boundingRect(contours[0])
                 #drawing a rectangle around the object with 15 as margin
-                if (box_width < 100):
-                    cv2.rectangle(frame, (x_min - 10, y_min - 10),(x_min + box_width + 10, y_min + box_height + 10),(0,255,0), 4)
+                if (40 < box_width < 100 and 40 < box_height < 100):
+                    points.append((int(x_min + (box_width/2)), int(y_min + (box_height/2))))
+                    cv2.circle(tracked, (points[-1][0], points[-1][1]), 20, (100, 150, 255), -1)
+                    # cv2.rectangle(framed, (x_min - 10, y_min - 10),(x_min + box_width + 10, y_min + box_height + 10),(0,255,0), 4)
             if first_iter:
-                avg = np.float32(frame)
+                avg = np.float32(framed)
                 first_iter = False
 
             # for i in range(1, len(points)):
-            tracked = frame.copy()
-            
-            cv2.line(tracked, (960, 0), (960, 1080), (0, 100, 255), 2)
-            cv2.line(tracked, (0, 540), (1920, 540), (0, 100, 255), 2)
-            cv2.circle(tracked, (960, 540), 85, (0, 100, 255), 2)
+            # tracked = framed.copy()
 
             for i in range(1, len(points)):
-                cv2.circle(tracked, (points[i][0], points[i][1]), 2, (255, 0, 255), 2)
-                cv2.line(tracked, (points[i-1][0], points[i-1][1]), (points[i][0], points[i][1]), (0, 0, 100), 2)
+                print(points[i])
+                if (233 < points[i][0] < 1694 and 182 < points[i][1] < 913):
+                    cv2.circle(tracked, (points[i][0], points[i][1]), 2, (255, 0, 255), 2)
+                    cv2.line(tracked, (points[i-1][0], points[i-1][1]), (points[i][0], points[i][1]), (0, 0, 100), 2)
             # cv2.accumulateWeighted(frame, avg, 0.005)
             # result = cv2.convertScaleAbs(avg)
             # cv2.imshow('avg',result)
@@ -130,5 +113,7 @@ with dai.Device(pipeline) as device:
             break
         if key == ord('p'):
             cv2.waitKey(-1) #wait until any key is pressed
+        if key == ord('c'):
+            points=[]
 
 cv2.destroyAllWindows()
