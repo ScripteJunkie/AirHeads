@@ -1,0 +1,44 @@
+body, html {
+    padding: 0px;
+    margin: 0px;
+}
+
+#table {
+    width: 900px;
+    height: 480px;
+    background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+    border-style: solid;
+    border-width: 15px;
+    border-color: linear-gradient(to right, #868f96 0%, #596164 100%);
+    border-radius: 100px;
+    position: absolute;
+}
+
+#ball {
+    width: 25px;
+    height: 25px;
+    background-color:orange;
+    border-radius: 100%;
+    position: absolute;
+    left: 100px;
+    top: 67px;
+}
+
+#goalL {
+    height: 140px;
+    width: 50px;
+    background-color: firebrick;
+    border-radius: 10px -10px -10px 10px;
+    top: 170px;
+    position: absolute;
+}
+
+#goalR {
+    height: 140px;
+    width: 50px;
+    background-color: firebrick;
+    border-radius: 10px -10px -10px 10px;
+    top: 170px;
+    right: 0;
+    position: absolute;
+}
