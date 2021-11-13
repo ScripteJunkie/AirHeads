@@ -1,3 +1,6 @@
 [submodule "src/Vimba"]
 	path = src/Vimba
 	url = https://github.com/alliedvision/VimbaPython.git
+[submodule "depthai"]
+	path = depthai
+	url = https://github.com/luxonis/depthai.git
