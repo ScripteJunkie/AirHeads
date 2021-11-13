@@ -1,0 +1,3 @@
+[submodule "src/Vimba"]
+	path = src/Vimba
+	url = https://github.com/alliedvision/VimbaPython.git
