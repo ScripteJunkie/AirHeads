@@ -6,7 +6,7 @@ def nothing(x):
     pass
 
 # Initializing the webcam feed.
-cap = cv2.VideoCapture('src/assets/Test1.mp4')
+cap = cv2.VideoCapture('src/assets/Test.mp4')
 # cap = cv2.VideoCapture(0)
 cap.set(3,1280)
 cap.set(4,720)
