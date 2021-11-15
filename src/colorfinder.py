@@ -117,7 +117,7 @@ with dai.Device(pipeline) as device:
                 print(thearray)
                 
                 # Also save this array as penval.npy
-                np.save('hsv_value',thearray)
+                # np.save('hsv_value',thearray)
                 break
 
 cv2.destroyAllWindows()
