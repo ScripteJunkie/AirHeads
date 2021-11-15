@@ -1,7 +1,7 @@
 # AirHeads
 ## The Lovecraftian Horror of Air Hockey, Energy Drinks, and Brilliant Minds
 
-![Example tracking](https://github.com/ScripteJunkie/AirHeads/blob/main/server/public/tracked.png)
+![Example tracking](https://github.com/ScripteJunkie/AirHeads/blob/main/server/public/tracked.jpg)
 
 ### Install:
 > Clone and open AirHeads library.
