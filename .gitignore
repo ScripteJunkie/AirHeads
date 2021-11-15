@@ -1,3 +1,4 @@
 .DS_Store
 *.npy
 /depthai
+hsv_value.npy
