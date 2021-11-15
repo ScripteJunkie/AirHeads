@@ -2,3 +2,4 @@
 *.npy
 /depthai
 hsv_value.npy
+*.npy
