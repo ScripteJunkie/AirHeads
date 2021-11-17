@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-
 import cv2
 import depthai as dai
 import numpy as np
+# import imutils
+import time
 
 # Create pipeline
 pipeline = dai.Pipeline()
@@ -20,6 +21,12 @@ camRgb.setColorOrder(dai.ColorCameraProperties.ColorOrder.RGB)
 
 # Linking
 camRgb.preview.link(xoutRgb.input)
+
+# used to record the time when we processed last frame
+prev_frame_time = 0
+ 
+# used to record the time at which we processed current frame
+new_frame_time = 0
 
 # Connect to device and start pipeline
 with dai.Device(pipeline) as device:
@@ -49,7 +56,8 @@ with dai.Device(pipeline) as device:
 
         if frame is not None:
             # cv2.imshow("rgb", frame)
-            framed = frame[0:1800, 0:1800]
+            framed = frame #frame[100:980, 200:1720]
+            # print(frame.shape)
 
             # fgMask = backSub.apply(frame)    
             # cv2.rectangle(frame, (10, 2), (100,20), (255,255,255), -1)
@@ -103,6 +111,27 @@ with dai.Device(pipeline) as device:
 
             # cv2.imshow('Mask',res)
             # cv2.imshow('mask',mask)
+
+            new_frame_time = time.time()
+        
+            # Calculating the fps
+        
+            # fps will be number of frame processed in given time frame
+            # since their will be most of time error of 0.001 second
+            # we will be subtracting it to get more accurate result
+            fps = 1/(new_frame_time-prev_frame_time)
+            prev_frame_time = new_frame_time
+        
+            # converting the fps into integer
+            fps = int(fps)
+        
+            # converting the fps to string so that we can display it on frame
+            # by using putText function
+            fps = str(fps)
+        
+            # putting the FPS count on the frame
+            cv2.putText(tracked, fps, (7, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (100, 100, 0), 2, cv2.LINE_AA)
+
             cv2.imshow('Tracking',tracked)
 
             # fps = qRgb.get(cv2.CAP_PROP_FPS)
