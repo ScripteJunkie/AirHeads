@@ -1,6 +1,6 @@
-[submodule "src/Vimba"]
-	path = src/Vimba
+[submodule "lib/Vimba"]
+	path = lib/Vimba
 	url = https://github.com/alliedvision/VimbaPython.git
-[submodule "depthai"]
-	path = depthai
+[submodule "lib/depthai"]
+	path = lib/depthai
 	url = https://github.com/luxonis/depthai.git
