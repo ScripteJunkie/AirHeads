@@ -2,7 +2,20 @@
 
 > Remember --- changes are human readable.
 
-## WIP 2021-11-17 17:40:56
+## WIP 2021-11-17 21:30:25
+
+### Removed
+* `*.mp4` - see Changed below
+
+### Added
+* `README` to mention issues in `assets`
+
+### Changed
+* `README` instruction correction
+* Uninstall Git-LFS because it is not supported in public forks (see https://github.com/git-lfs/git-lfs/issues/1906)
+
+- - -
+## Pull request to upstream - 2021-11-17 18:00:00
 
 Beginning of cleanup to make submodules work.
 
