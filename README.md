@@ -6,17 +6,16 @@
 ### Install:
 > Clone and open AirHeads library.
 ```
-git clone https://github.com/ScripteJunkie/AirHeads.git
+git clone --recursive https://github.com/rirmps/AirHeads.git
 cd AirHeads
 ```
 
 ### Setup:
-> Add required depthai library for OAK-D camera and setup virtal environment.
+> Setup virtal environment.
 ```
-git submodule add https://github.com/luxonis/depthai.git depthai
 conda create -n airhead python=3.8
 conda activate airhead
-python ./depthai/install_requirments.py
+python ./lib/depthai/install_requirments.py
 ```
 
 ### Alignment:
