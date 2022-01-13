@@ -2,7 +2,6 @@
 import cv2
 import depthai as dai
 import numpy as np
-# import imutils
 import time
 
 # Create pipeline
@@ -73,8 +72,10 @@ with dai.Device(pipeline) as device:
             # change it according to your need !
             # lower_white = np.array([133, 0, 0], dtype=np.uint8)
             # upper_white = np.array([179, 255, 115], dtype=np.uint8)
-            lower_white = np.array([2, 48, 125], dtype=np.uint8)
-            upper_white = np.array([81, 255, 255], dtype=np.uint8)
+            # lower_white = np.array([2, 48, 125], dtype=np.uint8)
+            # upper_white = np.array([81, 255, 255], dtype=np.uint8)
+            lower_white = np.array([7, 48, 74], dtype=np.uint8)
+            upper_white = np.array([144, 220, 255], dtype=np.uint8)
 
             # Threshold the HSV image to get only white colors
             mask = cv2.inRange(hsv, lower_white, upper_white)
@@ -144,5 +145,4 @@ with dai.Device(pipeline) as device:
             cv2.waitKey(-1) #wait until any key is pressed
         if key == ord('c'):
             points=[]
-
 cv2.destroyAllWindows()
