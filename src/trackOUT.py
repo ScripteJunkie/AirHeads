@@ -171,3 +171,5 @@ with dai.Device(pipeline) as device:
 
 
 cv2.destroyAllWindows()
+
+#testing
